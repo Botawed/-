@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace paint2
@@ -32,8 +28,11 @@ namespace paint2
             InitializeComponent();
             drawing = false; //Переменная, ответственная за рисование
              ColorPen = Color.Red;
-            
-             currentPen = new Pen(ColorPen); //Инициализация пера с черным цветом
+
+            picDrawingSurface.Width = trackBar2.Value;
+            picDrawingSurface.Height = trackBar3.Value;
+
+            currentPen = new Pen(ColorPen); //Инициализация пера с черным цветом
             currentPen.Width = trackBar1.Value; //Инициализация толщины пера
             History = new List<Image>(); //Инициализация списка для истории
         }
@@ -78,7 +77,7 @@ private void picDrawingSurface_MouseDown(object sender, MouseEventArgs e)
             }
             History.Clear();
             historyCounter = 0;
-            Bitmap pic = new Bitmap(761, 307);
+            Bitmap pic = new Bitmap(trackBar2.Value, trackBar3.Value);
             picDrawingSurface.Image = pic;
             History.Add(new Bitmap(picDrawingSurface.Image));
            
@@ -159,18 +158,20 @@ private void picDrawingSurface_MouseDown(object sender, MouseEventArgs e)
                 y2 = e.Y;
 
 
-                //Graphics g = Graphics.FromImage(picDrawingSurface.Image);
-                //g.DrawRectangle(currentPen, x1, y1, x2 - x1, y2 - y1);
-                //g.Dispose();
-                //picDrawingSurface.Invalidate();
                 Graphics g = Graphics.FromImage(picDrawingSurface.Image);
-
-                currentPath.AddLine(oldLocation, e.Location);//GraphicsPath currentPath;
-                g.DrawPath(currentPen, currentPath);
-                oldLocation = e.Location;
-
+                g.Clear(Color.White);
+                g.DrawRectangle(currentPen, x1, y1, x2 - x1, y2 - y1);
                 g.Dispose();
                 picDrawingSurface.Invalidate();
+                
+                //Graphics g = Graphics.FromImage(picDrawingSurface.Image);
+
+                //currentPath.AddLine(oldLocation, e.Location);//GraphicsPath currentPath;
+                //g.DrawPath(currentPen, currentPath);
+                //oldLocation = e.Location;
+
+                //g.Dispose();
+                //picDrawingSurface.Invalidate();
 
             }
 
@@ -265,7 +266,15 @@ private void picDrawingSurface_MouseDown(object sender, MouseEventArgs e)
             colorToolStripMenuItem_Click( sender,  e);
         }
 
-        
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+            picDrawingSurface.Width = trackBar2.Value;
+        }
+
+        private void trackBar3_Scroll(object sender, EventArgs e)
+        {
+            picDrawingSurface.Height = trackBar3.Value;
+        }
     }
 }
 //e.Graphics.DrawLine(currentPen, x1, y1, x2, y2);//линия
