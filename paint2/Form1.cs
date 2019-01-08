@@ -224,7 +224,7 @@ private void picDrawingSurface_MouseDown(object sender, MouseEventArgs e)
                             pnts[i] = points[i];
                         }
                         g.DrawPolygon(currentPen, pnts);
-                        
+                        g.FillPolygon(currentBrush, pnts);
                         g.Dispose();
                         picDrawingSurface.Invalidate();
                     }
