@@ -520,7 +520,7 @@
             // Polygon
             // 
             this.Polygon.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.Polygon.Image = ((System.Drawing.Image)(resources.GetObject("Polygon.Image")));
+            this.Polygon.Image = global::paint2.Properties.Resources.Polygon;
             this.Polygon.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Polygon.Name = "Polygon";
             this.Polygon.Size = new System.Drawing.Size(23, 22);
