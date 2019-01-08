@@ -21,7 +21,9 @@ namespace paint2
         GraphicsPath currentPath;
         Point oldLocation;
         public Pen currentPen;
-       
+        public SolidBrush currentBrush;
+
+
         List<Image> History; //Список для истории
         public Form1()
         {
@@ -29,8 +31,10 @@ namespace paint2
             drawing = false; //Переменная, ответственная за рисование
              ColorPen = Color.Red;
 
-            picDrawingSurface.Width = trackBar2.Value;
-            picDrawingSurface.Height = trackBar3.Value;
+            picDrawingSurface.Width = trackBar2.Value; //изменение ширины
+            picDrawingSurface.Height = trackBar3.Value; // изменение высоты 
+
+            currentBrush = new SolidBrush(BackColor);
 
             currentPen = new Pen(ColorPen); //Инициализация пера с черным цветом
             currentPen.Width = trackBar1.Value; //Инициализация толщины пера
@@ -160,7 +164,9 @@ private void picDrawingSurface_MouseDown(object sender, MouseEventArgs e)
 
                 Graphics g = Graphics.FromImage(picDrawingSurface.Image);
                 g.Clear(Color.White);
+                //g.DrawRectangle(currentBrush, x1, y1, x2 - x1, y2 - y1);
                 g.DrawRectangle(currentPen, x1, y1, x2 - x1, y2 - y1);
+                g.FillRectangle(currentBrush, x1, y1, x2 - x1, y2 - y1);
                 g.Dispose();
                 picDrawingSurface.Invalidate();
                 
@@ -266,14 +272,23 @@ private void picDrawingSurface_MouseDown(object sender, MouseEventArgs e)
             colorToolStripMenuItem_Click( sender,  e);
         }
 
-        private void trackBar2_Scroll(object sender, EventArgs e)
+        private void trackBar2_Scroll(object sender, EventArgs e)//задание размера пикчерсбокс
         {
             picDrawingSurface.Width = trackBar2.Value;
         }
 
-        private void trackBar3_Scroll(object sender, EventArgs e)
+        private void trackBar3_Scroll(object sender, EventArgs e)//задание размера пикчерсбокс
         {
             picDrawingSurface.Height = trackBar3.Value;
+        }
+
+        private void toolStripButton7_Click(object sender, EventArgs e)//цвет заливки
+        {
+            if (colorDialog2.ShowDialog() == DialogResult.OK)
+            {
+                
+                currentBrush.Color = colorDialog2.Color;
+            }
         }
     }
 }
