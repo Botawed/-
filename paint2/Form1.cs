@@ -10,7 +10,7 @@ namespace paint2
 
     public partial class Form1 : Form
     {
-        
+        string selectedTool;
         int x1;
         int y1;
         int x2;
@@ -156,30 +156,100 @@ private void picDrawingSurface_MouseDown(object sender, MouseEventArgs e)
         {
             
             label1.Text = e.X.ToString() + "X,Y" + e.Y.ToString();
-            if (drawing)
+            x2 = e.X;
+            y2 = e.Y;
+            switch (selectedTool)
             {
-                x2 = e.X;
-                y2 = e.Y;
+                case "Circle":
+                    if (drawing )
+                    {
+                        Graphics g = Graphics.FromImage(picDrawingSurface.Image);
+                        g.Clear(Color.White);
+                      
+                        g.DrawEllipse(currentPen, x1, y1, x2 - x1, y2 - y1);
+                        g.FillEllipse(currentBrush, x1, y1, x2 - x1, y2 - y1);
+                        g.Dispose();
+                        picDrawingSurface.Invalidate();
+                    }
+                    break;
 
+                case "Rectangle":
+                    if (drawing )
+                    {
+                        Graphics g = Graphics.FromImage(picDrawingSurface.Image);
+                        g.Clear(Color.White);
+                        //g.DrawRectangle(currentBrush, x1, y1, x2 - x1, y2 - y1);
+                        g.DrawRectangle(currentPen, x1, y1, x2 - x1, y2 - y1);
+                        g.FillRectangle(currentBrush, x1, y1, x2 - x1, y2 - y1);
+                        g.Dispose();
+                        picDrawingSurface.Invalidate();
+                    }
+                    break;
 
-                Graphics g = Graphics.FromImage(picDrawingSurface.Image);
-                g.Clear(Color.White);
-                //g.DrawRectangle(currentBrush, x1, y1, x2 - x1, y2 - y1);
-                g.DrawRectangle(currentPen, x1, y1, x2 - x1, y2 - y1);
-                g.FillRectangle(currentBrush, x1, y1, x2 - x1, y2 - y1);
-                g.Dispose();
-                picDrawingSurface.Invalidate();
-                
-                //Graphics g = Graphics.FromImage(picDrawingSurface.Image);
+                case "Pencil":
+                    if (drawing)
+                    {
+                        Graphics g = Graphics.FromImage(picDrawingSurface.Image);
+                        currentPath.AddLine(oldLocation, e.Location);//GraphicsPath currentPath;
+                        g.DrawPath(currentPen, currentPath);
+                        oldLocation = e.Location;
+                        g.Dispose();
+                        picDrawingSurface.Invalidate();
+                    }
+                    break;
 
-                //currentPath.AddLine(oldLocation, e.Location);//GraphicsPath currentPath;
-                //g.DrawPath(currentPen, currentPath);
-                //oldLocation = e.Location;
+                case "Line":
+                    if (drawing)
+                    {
+                        Graphics g = Graphics.FromImage(picDrawingSurface.Image);
+                        g.Clear(Color.White);
+                        g.DrawLine(currentPen, x1, y1, x2, y2);
+                        g.Dispose();
+                        picDrawingSurface.Invalidate();
+                    }
+                    break;
 
-                //g.Dispose();
-                //picDrawingSurface.Invalidate();
+                case "Polygon":
+                    if (drawing)
+                    {
+                        Graphics g = Graphics.FromImage(picDrawingSurface.Image);
+                        g.Clear(Color.White);
+                        //g.DrawRectangle(currentBrush, x1, y1, x2 - x1, y2 - y1);
+                        g.DrawRectangle(currentPen, x1, y1, x2 - x1, y2 - y1);
+                        g.FillRectangle(currentBrush, x1, y1, x2 - x1, y2 - y1);
+                        g.Dispose();
+                        picDrawingSurface.Invalidate();
+                    }
 
+                default:
+                    break;
             }
+
+
+            //if (drawing)
+            //{
+            //    x2 = e.X;
+            //    y2 = e.Y;
+
+
+            //    Graphics g = Graphics.FromImage(picDrawingSurface.Image);
+            //    g.Clear(Color.White);
+            //    //g.DrawRectangle(currentBrush, x1, y1, x2 - x1, y2 - y1);
+            //    g.DrawRectangle(currentPen, x1, y1, x2 - x1, y2 - y1);
+            //    g.FillRectangle(currentBrush, x1, y1, x2 - x1, y2 - y1);
+            //    g.Dispose();
+            //    picDrawingSurface.Invalidate();
+                
+            //    //Graphics g = Graphics.FromImage(picDrawingSurface.Image);
+
+            //    //currentPath.AddLine(oldLocation, e.Location);//GraphicsPath currentPath;
+            //    //g.DrawPath(currentPen, currentPath);
+            //    //oldLocation = e.Location;
+
+            //    //g.Dispose();
+            //    //picDrawingSurface.Invalidate();
+
+            //}
 
         }
 
@@ -289,6 +359,19 @@ private void picDrawingSurface_MouseDown(object sender, MouseEventArgs e)
                 
                 currentBrush.Color = colorDialog2.Color;
             }
+        }
+
+
+        private void Circle_Click(object sender, EventArgs e)
+        {
+            foreach (ToolStripButton btn in toolStrip1.Items)
+            {
+                btn.Checked = false;
+            }
+
+            ToolStripButton btnClicked = sender as ToolStripButton;
+            btnClicked.Checked = true;
+            selectedTool = btnClicked.Name;
         }
     }
 }
