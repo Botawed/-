@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Runtime.Remoting.Proxies;
 using System.Windows.Forms;
 
 namespace paint2
@@ -42,7 +43,7 @@ namespace paint2
             History = new List<Image>(); //Инициализация списка для истории
         }
        
-private void picDrawingSurface_MouseDown(object sender, MouseEventArgs e)
+    private void picDrawingSurface_MouseDown(object sender, MouseEventArgs e)
         {
             if (picDrawingSurface.Image == null)
             {
@@ -60,14 +61,14 @@ private void picDrawingSurface_MouseDown(object sender, MouseEventArgs e)
                 currentPath = new GraphicsPath();
             }
 
+            
+
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)// сохранения с боку
         {
             saveToolStripMenuItem_Click( sender,  e);
         }
-
-        
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)// new создание
         {
@@ -95,7 +96,7 @@ private void picDrawingSurface_MouseDown(object sender, MouseEventArgs e)
             newToolStripMenuItem_Click( sender,  e);
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)//сохранение
         {
             SaveFileDialog SaveDlg = new SaveFileDialog();
             SaveDlg.Filter = "JPEG Image|*.jpg|Bitmap Image|*.bmp|GIF Image|*.gif|PNG Image | *.png";
@@ -126,7 +127,7 @@ private void picDrawingSurface_MouseDown(object sender, MouseEventArgs e)
             }
         }
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)//
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)//открытие
         {
             OpenFileDialog OP = new OpenFileDialog();
             OP.Filter = "JPEG Image|*.jpg|Bitmap Image|*.bmp|GIF Image|*.gif|PNG Image | *.png";
@@ -141,6 +142,7 @@ private void picDrawingSurface_MouseDown(object sender, MouseEventArgs e)
 
         private void picDrawingSurface_MouseUp(object sender, MouseEventArgs e)
         {
+
             //Очистка ненужной истории
             History.RemoveRange(historyCounter + 1, History.Count - historyCounter - 1);
             History.Add(new Bitmap(picDrawingSurface.Image));
@@ -149,13 +151,14 @@ private void picDrawingSurface_MouseDown(object sender, MouseEventArgs e)
             drawing = false;
             try
             {
+
                 currentPath.Dispose();
             }
             catch { };
 
         }
 
-        private void picDrawingSurface_MouseMove(object sender, MouseEventArgs e)
+        public void picDrawingSurface_MouseMove(object sender, MouseEventArgs e)
         {
             
             label1.Text = e.X.ToString() + "X,Y" + e.Y.ToString();
@@ -168,24 +171,27 @@ private void picDrawingSurface_MouseDown(object sender, MouseEventArgs e)
                     {
                         Graphics g = Graphics.FromImage(picDrawingSurface.Image);
                         g.Clear(Color.White);
-                      
                         g.DrawEllipse(currentPen, x1, y1, x2 - x1, y2 - y1);
                         g.FillEllipse(currentBrush, x1, y1, x2 - x1, y2 - y1);
                         g.Dispose();
                         picDrawingSurface.Invalidate();
+                        
                     }
                     break;
 
-                case "Rectangle":
+                case "Rectanglee":
                     if (drawing )
                     {
+                        
                         Graphics g = Graphics.FromImage(picDrawingSurface.Image);
                         g.Clear(Color.White);
                         //g.DrawRectangle(currentBrush, x1, y1, x2 - x1, y2 - y1);
                         g.DrawRectangle(currentPen, x1, y1, x2 - x1, y2 - y1);
                         g.FillRectangle(currentBrush, x1, y1, x2 - x1, y2 - y1);
                         g.Dispose();
-                        picDrawingSurface.Invalidate();
+                         picDrawingSurface.Invalidate();
+                       
+
                     }
                     break;
 
@@ -292,7 +298,7 @@ private void picDrawingSurface_MouseDown(object sender, MouseEventArgs e)
             dotToolStripMenuItem.Checked = false;
             dashDotDotToolStripMenuItem.Checked = false;
 
-        }
+        }//стиль пера
 
         private void dotToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -300,7 +306,7 @@ private void picDrawingSurface_MouseDown(object sender, MouseEventArgs e)
             solidToolStripMenuItem.Checked = false;
             dotToolStripMenuItem.Checked = true;
             dashDotDotToolStripMenuItem.Checked = false;
-        }
+        }//стиль пера
 
         private void dashDotDotToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -309,9 +315,9 @@ private void picDrawingSurface_MouseDown(object sender, MouseEventArgs e)
             dotToolStripMenuItem.Checked = false;
 
             dashDotDotToolStripMenuItem.Checked = true;
-        }
+        }//стиль пера
 
-        private void colorToolStripMenuItem_Click(object sender, EventArgs e)
+        private void colorToolStripMenuItem_Click(object sender, EventArgs e)// цвет
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -320,7 +326,7 @@ private void picDrawingSurface_MouseDown(object sender, MouseEventArgs e)
             }
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)//сохранение перед выходом
         {
             if (picDrawingSurface.Image != null)
             {
@@ -370,7 +376,7 @@ private void picDrawingSurface_MouseDown(object sender, MouseEventArgs e)
         }
 
 
-        private void Circle_Click(object sender, EventArgs e)
+        private void Circle_Click(object sender, EventArgs e)//выбор фигуры
         {
             foreach (ToolStripButton btn in toolStrip1.Items)
             {
