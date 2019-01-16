@@ -11,12 +11,14 @@ namespace paint2
 
     public partial class Form1 : Form
     {
+
+        List<twopoint> twopoint = new List<twopoint>();
         List<Point> points;
         string selectedTool;
-        int x1;
-        int y1;
-        int x2;
-        int y2;
+        int x1 = 0;
+        int y1 = 0;
+        int x2 =0;
+        int y2 = 0;
         Color ColorPen;
         bool drawing;
         int historyCounter; //Счетчик истории
@@ -30,11 +32,9 @@ namespace paint2
             InitializeComponent();
             drawing = false; //Переменная, ответственная за рисование
              ColorPen = Color.Red;
-
             points = new List<Point>();
 
-            picDrawingSurface.Width = trackBar2.Value; //изменение ширины
-            picDrawingSurface.Height = trackBar3.Value; // изменение высоты 
+           
 
             currentBrush = new SolidBrush(BackColor);
 
@@ -82,10 +82,16 @@ namespace paint2
                     case DialogResult.Cancel: return;
                 }
             }
-            points.Clear();
+            
             History.Clear();
             historyCounter = 0;
-            Bitmap pic = new Bitmap(trackBar2.Value, trackBar3.Value);
+            //изменение битмап 
+            var text = textBox1.Text;
+           var text2 = textBox2.Text;
+            int ol = Convert.ToInt32(text);
+            int l = Convert.ToInt32(text2);
+
+            Bitmap pic = new Bitmap(ol,l);
             picDrawingSurface.Image = pic;
             History.Add(new Bitmap(picDrawingSurface.Image));
            
@@ -149,6 +155,7 @@ namespace paint2
             if (historyCounter + 1 < 6) historyCounter++;
             if (History.Count - 1 == 6) History.RemoveAt(0);
             drawing = false;
+            twopoint.Add(new twopoint(new Point(x1, y1), new Point(x2, y2)));
             try
             {
 
@@ -185,10 +192,12 @@ namespace paint2
                         
                         Graphics g = Graphics.FromImage(picDrawingSurface.Image);
                         g.Clear(Color.White);
+                       
                         //g.DrawRectangle(currentBrush, x1, y1, x2 - x1, y2 - y1);
                         g.DrawRectangle(currentPen, x1, y1, x2 - x1, y2 - y1);
                         g.FillRectangle(currentBrush, x1, y1, x2 - x1, y2 - y1);
                         g.Dispose();
+                        
                          picDrawingSurface.Invalidate();
                        
 
@@ -210,11 +219,18 @@ namespace paint2
                 case "Line":
                     if (drawing)
                     {
+                        //twopoint.Clear();
                         Graphics g = Graphics.FromImage(picDrawingSurface.Image);
                         g.Clear(Color.White);
-                        g.DrawLine(currentPen, x1, y1, x2, y2);
-                        g.Dispose();
-                        picDrawingSurface.Invalidate();
+                        g.DrawLine(currentPen, new Point(x1,y1), new Point(x2,y2));
+                        //g.Dispose();
+                       picDrawingSurface.Invalidate();
+                        foreach (var p in twopoint)
+                        {
+                            g.DrawLine(currentPen, p.X1, p.Y1);
+                            
+                        }
+
                     }
                     break;
 
@@ -223,7 +239,7 @@ namespace paint2
                     {
                         Graphics g = Graphics.FromImage(picDrawingSurface.Image);
                         g.Clear(Color.White);
-                        
+
                         Point[] pnts = new Point[points.Count];
                         for (int i = 0; i < points.Count; i++)
                         {
@@ -231,6 +247,7 @@ namespace paint2
                         }
                         g.DrawPolygon(currentPen, pnts);
                         g.FillPolygon(currentBrush, pnts);
+                        g.SmoothingMode = SmoothingMode.HighQuality;
                         g.Dispose();
                         picDrawingSurface.Invalidate();
                     }
@@ -356,28 +373,11 @@ namespace paint2
             colorToolStripMenuItem_Click( sender,  e);
         }
 
-        private void trackBar2_Scroll(object sender, EventArgs e)//задание размера пикчерсбокс
-        {
-            picDrawingSurface.Width = trackBar2.Value;
-        }
-
-        private void trackBar3_Scroll(object sender, EventArgs e)//задание размера пикчерсбокс
-        {
-            picDrawingSurface.Height = trackBar3.Value;
-        }
-
-        private void toolStripButton7_Click(object sender, EventArgs e)//цвет заливки
-        {
-            if (colorDialog2.ShowDialog() == DialogResult.OK)
-            {
-                
-                currentBrush.Color = colorDialog2.Color;
-            }
-        }
-
 
         private void Circle_Click(object sender, EventArgs e)//выбор фигуры
         {
+            points.Clear();
+            twopoint.Clear();
             foreach (ToolStripButton btn in toolStrip1.Items)
             {
                 btn.Checked = false;
@@ -387,6 +387,29 @@ namespace paint2
             btnClicked.Checked = true;
             selectedTool = btnClicked.Name;
         }
+
+        private void button1_Click(object sender, EventArgs e)// изменнеие размера
+        {
+            if (Convert.ToInt32(textBox1.Text) >= 0 && Convert.ToInt32(textBox1.Text) <= 1300 &&
+                Convert.ToInt32(textBox2.Text) >= 0 && Convert.ToInt32(textBox1.Text) <= 700)
+            {
+                
+
+                picDrawingSurface.Width = Convert.ToInt32(textBox1.Text); //изменение ширины
+                picDrawingSurface.Height = Convert.ToInt32(textBox2.Text); // изменение высоты 
+                picDrawingSurface.Size = new Size(picDrawingSurface.Width, picDrawingSurface.Height);
+
+            }
+        }
+
+        private void toolStripButton6_Click(object sender, EventArgs e)
+        {
+            if (colorDialog2.ShowDialog() == DialogResult.OK)
+            {
+
+                currentBrush.Color = colorDialog2.Color;
+            }
+        }//цвет заливки
     }
 }
 //e.Graphics.DrawLine(currentPen, x1, y1, x2, y2);//линия
