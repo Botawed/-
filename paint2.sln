@@ -5,11 +5,6 @@ VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "paint2", "paint2\paint2.csproj", "{9B3A0E13-8040-45A5-A832-8E6B09043AE8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E219A23E-2EBC-445F-95EA-946A82FA2645}"
-	ProjectSection(SolutionItems) = preProject
-		rectangle.cs = rectangle.cs
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

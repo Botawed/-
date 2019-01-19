@@ -77,6 +77,7 @@
             this.Pencil = new System.Windows.Forms.ToolStripButton();
             this.Line = new System.Windows.Forms.ToolStripButton();
             this.Polygon = new System.Windows.Forms.ToolStripButton();
+            this.Polline = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -274,7 +275,7 @@
             this.toolStripButton5});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(32, 426);
+            this.toolStrip1.Size = new System.Drawing.Size(24, 426);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -284,7 +285,7 @@
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(29, 20);
+            this.toolStripButton1.Size = new System.Drawing.Size(21, 20);
             this.toolStripButton1.Text = "toolStripButton1";
             this.toolStripButton1.ToolTipText = "Create";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
@@ -295,7 +296,7 @@
             this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(29, 20);
+            this.toolStripButton2.Size = new System.Drawing.Size(21, 20);
             this.toolStripButton2.Text = "toolStripButton2";
             this.toolStripButton2.ToolTipText = "Save";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
@@ -306,7 +307,7 @@
             this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(29, 20);
+            this.toolStripButton3.Size = new System.Drawing.Size(21, 20);
             this.toolStripButton3.Text = "toolStripButton3";
             this.toolStripButton3.ToolTipText = "Open";
             this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
@@ -317,7 +318,7 @@
             this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
             this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(29, 20);
+            this.toolStripButton4.Size = new System.Drawing.Size(21, 20);
             this.toolStripButton4.Text = "toolStripButton4";
             this.toolStripButton4.ToolTipText = "Color";
             this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
@@ -328,7 +329,7 @@
             this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
             this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton6.Name = "toolStripButton6";
-            this.toolStripButton6.Size = new System.Drawing.Size(29, 20);
+            this.toolStripButton6.Size = new System.Drawing.Size(21, 20);
             this.toolStripButton6.Text = "toolStripButton4";
             this.toolStripButton6.ToolTipText = "ColorFill";
             this.toolStripButton6.Click += new System.EventHandler(this.toolStripButton6_Click);
@@ -336,7 +337,7 @@
             // toolStripButton7
             // 
             this.toolStripButton7.Name = "toolStripButton7";
-            this.toolStripButton7.Size = new System.Drawing.Size(29, 4);
+            this.toolStripButton7.Size = new System.Drawing.Size(21, 4);
             // 
             // toolStripButton5
             // 
@@ -344,7 +345,7 @@
             this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
             this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(29, 20);
+            this.toolStripButton5.Size = new System.Drawing.Size(21, 20);
             this.toolStripButton5.Text = "toolStripButton5";
             this.toolStripButton5.ToolTipText = "Exit";
             this.toolStripButton5.Click += new System.EventHandler(this.toolStripButton5_Click);
@@ -358,9 +359,9 @@
             this.panel1.Controls.Add(this.trackBar1);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(32, 391);
+            this.panel1.Location = new System.Drawing.Point(24, 391);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(794, 59);
+            this.panel1.Size = new System.Drawing.Size(802, 59);
             this.panel1.TabIndex = 3;
             // 
             // button1
@@ -452,10 +453,11 @@
             this.Rectanglee,
             this.Pencil,
             this.Line,
-            this.Polygon});
-            this.toolStrip2.Location = new System.Drawing.Point(32, 24);
+            this.Polygon,
+            this.Polline});
+            this.toolStrip2.Location = new System.Drawing.Point(24, 24);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(794, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(802, 25);
             this.toolStrip2.TabIndex = 5;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -512,6 +514,16 @@
             this.Polygon.Size = new System.Drawing.Size(23, 22);
             this.Polygon.Text = "Polygon";
             this.Polygon.Click += new System.EventHandler(this.Circle_Click);
+            // 
+            // Polline
+            // 
+            this.Polline.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Polline.Image = global::paint2.Properties.Resources.Polline;
+            this.Polline.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Polline.Name = "Polline";
+            this.Polline.Size = new System.Drawing.Size(23, 22);
+            this.Polline.Text = "polline";
+            this.Polline.Click += new System.EventHandler(this.Circle_Click);
             // 
             // Form1
             // 
@@ -594,6 +606,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.ToolStripButton toolStripButton6;
+        private System.Windows.Forms.ToolStripButton Polline;
     }
 }
 

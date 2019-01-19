@@ -29,6 +29,7 @@ namespace paint2
         List<Image> History; //Список для истории
         public Form1()
         {
+
             InitializeComponent();
             drawing = false; //Переменная, ответственная за рисование
              ColorPen = Color.Red;
@@ -189,17 +190,21 @@ namespace paint2
                 case "Rectanglee":
                     if (drawing )
                     {
-                        
+                        //Graphics g = this.CreateGraphics();
                         Graphics g = Graphics.FromImage(picDrawingSurface.Image);
                         g.Clear(Color.White);
+                        Point p = new Point( x1, y1);
+                        Size s = new Size(x2, y2);
                        
                         //g.DrawRectangle(currentBrush, x1, y1, x2 - x1, y2 - y1);
-                        g.DrawRectangle(currentPen, x1, y1, x2 - x1, y2 - y1);
-                        g.FillRectangle(currentBrush, x1, y1, x2 - x1, y2 - y1);
+                        Rectangle r2 = new Rectangle(p, s);
+                        g.DrawRectangle(currentPen, r2);
+                        //g.DrawRectangle(currentPen, x1, y1, x2 - x1, y2 - y1);
+                        g.FillRectangle(currentBrush, r2);
                         g.Dispose();
-                        
                          picDrawingSurface.Invalidate();
                        
+
 
                     }
                     break;
@@ -213,6 +218,7 @@ namespace paint2
                         oldLocation = e.Location;
                         g.Dispose();
                         picDrawingSurface.Invalidate();
+
                     }
                     break;
 
@@ -247,6 +253,24 @@ namespace paint2
                         }
                         g.DrawPolygon(currentPen, pnts);
                         g.FillPolygon(currentBrush, pnts);
+                        g.SmoothingMode = SmoothingMode.HighQuality;
+                        g.Dispose();
+                        picDrawingSurface.Invalidate();
+                    }
+                    break;
+                case "Polline":
+                    if (drawing)
+                    {
+                        Graphics g = Graphics.FromImage(picDrawingSurface.Image);
+                        g.Clear(Color.White);
+
+                        Point[] pnts = new Point[points.Count];
+                        for (int i = 0; i < points.Count; i++)
+                        {
+                            pnts[i] = points[i];
+                        }
+                        g.DrawLines(currentPen, pnts);
+                        //g.FillPolygon(currentBrush, pnts);
                         g.SmoothingMode = SmoothingMode.HighQuality;
                         g.Dispose();
                         picDrawingSurface.Invalidate();
@@ -372,7 +396,6 @@ namespace paint2
         {
             colorToolStripMenuItem_Click( sender,  e);
         }
-
 
         private void Circle_Click(object sender, EventArgs e)//выбор фигуры
         {
